@@ -1,8 +1,6 @@
-title: ドッグミールプランナー
+title: Dog Meal Planner
 email: your-email@example.com
-description: >- 
-  愛犬の体重と食材の好みを入力して、最適な食事プランを作成しましょう。
-  タンパク質の必要量を計算し、各食材の適切な配分をお教えします。
+description: ""
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
