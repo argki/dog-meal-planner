@@ -14,7 +14,7 @@ body {
 
 /* ヘッダー */
 .site-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #8B7355 0%, #A0522D 25%, #696969 50%, #708090 75%, #2F4F4F 100%);
     color: white;
     padding: 1rem 0;
     text-align: center;
