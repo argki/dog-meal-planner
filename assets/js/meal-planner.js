@@ -22,6 +22,8 @@ let sliders = {};
 document.addEventListener('DOMContentLoaded', function() {
     initializeSliders();
     setupEventListeners();
+    // スライダーの値を正規化してから結果を更新
+    updatePercentages();
     updateResults();
 });
 
