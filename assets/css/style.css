@@ -52,6 +52,17 @@ body {
     opacity: 0.8;
 }
 
+.site-footer a {
+    color: #87CEEB;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.site-footer a:hover {
+    color: #B0E0E6;
+    text-decoration: underline;
+}
+
 /* ドッグミールプランナー専用スタイル */
 .container {
     max-width: 800px;
@@ -271,6 +282,7 @@ input[type="number"]:focus, select:focus {
     padding: 20px;
     border-radius: 8px;
     border-left: 4px solid #ffc107;
+    margin-top: 30px;
 }
 
 .notes ul {
