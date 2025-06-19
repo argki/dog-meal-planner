@@ -1,0 +1,108 @@
+---
+layout: default
+title: ドッグミールプランナー
+---
+
+<div class="container">
+  <header class="page-header">
+    <h1>🐕 ドッグミールプランナー</h1>
+    <p class="lead">愛犬の体重と食材の好みを入力して、最適な食事プランを作成しましょう</p>
+  </header>
+
+  <div class="meal-planner">
+    <!-- 基本情報入力セクション -->
+    <section class="input-section">
+      <h2>基本情報</h2>
+      <div class="form-group">
+        <label for="dogWeight">愛犬の体重 (kg)</label>
+        <input type="number" id="dogWeight" min="0.1" max="100" step="0.1" placeholder="例: 3.5">
+      </div>
+      
+      <div class="form-group">
+        <label for="dogAge">年齢</label>
+        <select id="dogAge">
+          <option value="adult">成犬</option>
+          <option value="puppy">子犬</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- 食材選択セクション -->
+    <section class="ingredients-section">
+      <h2>食材の好みを調整</h2>
+      <p class="instruction">各食材のスライダーを動かして、愛犬の好みに合わせて調整してください。合計は自動的に100%になります。</p>
+      
+      <div class="ingredients-grid">
+        <div class="ingredient-item">
+          <label for="chicken-breast">鶏ささみ</label>
+          <input type="range" id="chicken-breast" min="0" max="100" value="25" class="ingredient-slider">
+          <span class="percentage">25%</span>
+        </div>
+        
+        <div class="ingredient-item">
+          <label for="chicken-thigh">鶏むね肉</label>
+          <input type="range" id="chicken-thigh" min="0" max="100" value="20" class="ingredient-slider">
+          <span class="percentage">20%</span>
+        </div>
+        
+        <div class="ingredient-item">
+          <label for="beef">牛肉（赤身）</label>
+          <input type="range" id="beef" min="0" max="100" value="15" class="ingredient-slider">
+          <span class="percentage">15%</span>
+        </div>
+        
+        <div class="ingredient-item">
+          <label for="pork">豚肉（赤身）</label>
+          <input type="range" id="pork" min="0" max="100" value="15" class="ingredient-slider">
+          <span class="percentage">15%</span>
+        </div>
+        
+        <div class="ingredient-item">
+          <label for="white-fish">白身魚（サーモン・タラなど）</label>
+          <input type="range" id="white-fish" min="0" max="100" value="15" class="ingredient-slider">
+          <span class="percentage">15%</span>
+        </div>
+        
+        <div class="ingredient-item">
+          <label for="blue-fish">青魚（サバ・サンマ・アジなど）</label>
+          <input type="range" id="blue-fish" min="0" max="100" value="10" class="ingredient-slider">
+          <span class="percentage">10%</span>
+        </div>
+      </div>
+      
+      <div class="total-percentage">
+        <strong>合計: <span id="totalPercentage">100</span>%</strong>
+      </div>
+    </section>
+
+    <!-- 計算結果セクション -->
+    <section class="results-section" id="resultsSection" style="display: none;">
+      <h2>食事プラン</h2>
+      
+      <div class="protein-info">
+        <h3>タンパク質必要量</h3>
+        <div class="protein-details">
+          <p>1日あたりのタンパク質必要量: <strong id="dailyProtein">0</strong>g</p>
+          <p>（体重1kgあたり <span id="proteinPerKg">0</span>g）</p>
+        </div>
+      </div>
+      
+      <div class="meal-plan">
+        <h3>推奨食材配分</h3>
+        <div class="meal-items" id="mealItems">
+          <!-- 動的に生成される -->
+        </div>
+      </div>
+      
+      <div class="notes">
+        <h3>注意事項</h3>
+        <ul>
+          <li>表示されている量は最低摂取量です。最大3倍までが許容量です。</li>
+          <li>愛犬の体調や活動量に応じて調整してください。</li>
+          <li>初めての食材を与える際は少量から始めてください。</li>
+          <li>獣医師に相談してから食事を変更することをお勧めします。</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div> 

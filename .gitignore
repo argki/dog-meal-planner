@@ -1,0 +1,20 @@
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler
+/vendor/
+Gemfile.lock
+
+# VSCodeやエディタの設定
+.vscode/
+*.swp
+
+# OSごとの不要ファイル
+.DS_Store
+Thumbs.db
+
+# node_modules（将来JSビルド導入時のため）
+node_modules/ 
