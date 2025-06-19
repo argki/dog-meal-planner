@@ -60,6 +60,8 @@ function updatePercentages() {
     // 合計が100%になるように正規化
     Object.values(sliders).forEach(slider => {
         const percentage = Math.round((parseInt(slider.value) / total) * 100);
+        // スライダーの値も更新
+        slider.value = percentage;
         slider.nextElementSibling.textContent = percentage + '%';
     });
     
