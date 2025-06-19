@@ -19,7 +19,7 @@
     <meta property="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
     
     <!-- CSS with cache busting -->
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.version }}&t={{ site.timestamp }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.version }}&t={{ site.time | date: '%Y%m%d%H%M%S' }}">
     
     <!-- Cache control meta tags -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -45,6 +45,6 @@
     </footer>
 
     <!-- JavaScript with cache busting -->
-    <script src="{{ '/assets/js/meal-planner.js' | relative_url }}?v={{ site.version }}&t={{ site.timestamp }}"></script>
+    <script src="{{ '/assets/js/meal-planner.js' | relative_url }}?v={{ site.version }}&t={{ site.time | date: '%Y%m%d%H%M%S' }}"></script>
 </body>
 </html> 

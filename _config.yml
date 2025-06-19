@@ -16,7 +16,6 @@ plugins:
 
 # キャッシュバスティング用の設定
 version: "1.0.0"
-timestamp: "{{ site.time | date: '%Y%m%d%H%M%S' }}"
 
 # Exclude from processing
 exclude:
