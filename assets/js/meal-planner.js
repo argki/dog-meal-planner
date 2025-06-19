@@ -5,7 +5,9 @@ const ingredients = {
     'beef': { name: '牛肉（赤身）', protein: 22 },
     'pork': { name: '豚肉（赤身）', protein: 23 },
     'white-fish': { name: '白身魚', protein: 18 },
-    'blue-fish': { name: '青魚', protein: 19 }
+    'blue-fish': { name: '青魚', protein: 19 },
+    'egg': { name: '卵', protein: 12.3 },
+    'tofu': { name: '絹豆腐', protein: 7.2 }
 };
 
 // 年齢別タンパク質必要量
