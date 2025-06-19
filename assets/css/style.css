@@ -314,13 +314,22 @@ input[type="number"]:focus, select:focus {
     }
     
     .ingredient-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .ingredient-header label {
+        font-size: 12px;
+        flex: 1;
+        min-width: 0;
     }
     
     .percentage {
-        text-align: left;
+        text-align: right;
+        font-size: 12px;
+        min-width: 35px;
+        flex-shrink: 0;
     }
     
     .meal-item-formula {
