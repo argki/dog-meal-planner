@@ -221,6 +221,14 @@ input[type="number"]:focus, select:focus {
     font-size: 1.1em;
 }
 
+.meal-item-formula {
+    font-size: 0.8em;
+    color: #666;
+    font-family: 'Courier New', monospace;
+    margin-top: 5px;
+    font-style: italic;
+}
+
 .notes {
     background: #fff3cd;
     padding: 20px;
@@ -264,5 +272,9 @@ input[type="number"]:focus, select:focus {
     
     .percentage {
         text-align: left;
+    }
+    
+    .meal-item-formula {
+        font-size: 0.7em;
     }
 } 

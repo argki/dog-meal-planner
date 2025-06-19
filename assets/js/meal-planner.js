@@ -107,7 +107,10 @@ function updateResults() {
             const mealItem = document.createElement('div');
             mealItem.className = 'meal-item';
             mealItem.innerHTML = `
-                <span class="meal-item-name">${ingredient.name}</span>
+                <div>
+                    <span class="meal-item-name">${ingredient.name}</span>
+                    <div class="meal-item-formula">${dailyProtein.toFixed(1)}g × ${percentage}% ÷ ${ingredient.protein}g/100g = ${amountNeeded.toFixed(1)}g</div>
+                </div>
                 <span class="meal-item-amount">${amountNeeded.toFixed(1)}g</span>
             `;
             
