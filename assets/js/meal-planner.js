@@ -17,13 +17,14 @@ const proteinPerKg = {
 };
 
 let sliders = {};
+let isAdjusting = false; // 調整中フラグ
 
 // 初期化
 document.addEventListener('DOMContentLoaded', function() {
     initializeSliders();
     setupEventListeners();
-    // スライダーの値を正規化してから結果を更新
-    updatePercentages();
+    // 初期値を均等に分配
+    distributeEvenly();
     updateResults();
 });
 
@@ -41,37 +42,105 @@ function setupEventListeners() {
     // スライダーの変更を監視
     Object.values(sliders).forEach(slider => {
         slider.addEventListener('input', function() {
-            updatePercentages();
-            updateResults();
+            if (!isAdjusting) {
+                adjustOtherSliders(this);
+                updatePercentages();
+                updateResults();
+            }
         });
     });
 }
 
-function updatePercentages() {
-    const values = Object.values(sliders).map(s => parseInt(s.value));
-    const total = values.reduce((sum, val) => sum + val, 0);
+function distributeEvenly() {
+    const sliderCount = Object.keys(sliders).length;
+    const equalValue = Math.floor(100 / sliderCount);
+    const remainder = 100 % sliderCount;
     
-    if (total === 0) {
-        // すべて0の場合は均等に分配
-        const equalValue = Math.floor(100 / values.length);
-        Object.values(sliders).forEach((slider, index) => {
-            slider.value = equalValue;
+    let currentTotal = 0;
+    Object.values(sliders).forEach((slider, index) => {
+        let value = equalValue;
+        if (index < remainder) {
+            value += 1;
+        }
+        slider.value = value;
+        currentTotal += value;
+    });
+    
+    updatePercentages();
+}
+
+function adjustOtherSliders(changedSlider) {
+    isAdjusting = true;
+    
+    const sliderIds = Object.keys(sliders);
+    const changedIndex = sliderIds.findIndex(id => sliders[id] === changedSlider);
+    const changedValue = parseInt(changedSlider.value);
+    
+    // 他のスライダーの値を取得
+    const otherValues = [];
+    sliderIds.forEach((id, index) => {
+        if (index !== changedIndex) {
+            otherValues.push(parseInt(sliders[id].value));
+        }
+    });
+    
+    const otherTotal = otherValues.reduce((sum, val) => sum + val, 0);
+    const newTotal = changedValue + otherTotal;
+    
+    if (newTotal > 100) {
+        // 合計が100を超える場合、他のスライダーを比例的に減らす
+        const excess = newTotal - 100;
+        const reductionRatio = (otherTotal - excess) / otherTotal;
+        
+        sliderIds.forEach((id, index) => {
+            if (index !== changedIndex) {
+                const newValue = Math.max(0, Math.round(parseInt(sliders[id].value) * reductionRatio));
+                sliders[id].value = newValue;
+            }
         });
-        updatePercentages();
-        return;
+    } else if (newTotal < 100) {
+        // 合計が100未満の場合、他のスライダーを比例的に増やす
+        const deficit = 100 - newTotal;
+        if (otherTotal > 0) {
+            const increaseRatio = (otherTotal + deficit) / otherTotal;
+            
+            sliderIds.forEach((id, index) => {
+                if (index !== changedIndex) {
+                    const newValue = Math.min(100, Math.round(parseInt(sliders[id].value) * increaseRatio));
+                    sliders[id].value = newValue;
+                }
+            });
+        } else {
+            // 他のスライダーがすべて0の場合、均等に分配
+            const equalValue = Math.floor(deficit / (sliderIds.length - 1));
+            const remainder = deficit % (sliderIds.length - 1);
+            
+            let distributed = 0;
+            sliderIds.forEach((id, index) => {
+                if (index !== changedIndex) {
+                    let value = equalValue;
+                    if (distributed < remainder) {
+                        value += 1;
+                    }
+                    sliders[id].value = value;
+                    distributed++;
+                }
+            });
+        }
     }
     
-    // 合計が100%になるように正規化
+    isAdjusting = false;
+}
+
+function updatePercentages() {
     Object.values(sliders).forEach(slider => {
-        const percentage = Math.round((parseInt(slider.value) / total) * 100);
-        // スライダーの値も更新
-        slider.value = percentage;
-        // 新しいHTML構造に対応：ingredient-header内のpercentage要素を取得
+        const percentage = parseInt(slider.value);
         const percentageElement = slider.parentElement.querySelector('.percentage');
         percentageElement.textContent = percentage + '%';
     });
     
-    document.getElementById('totalPercentage').textContent = '100';
+    const total = Object.values(sliders).reduce((sum, slider) => sum + parseInt(slider.value), 0);
+    document.getElementById('totalPercentage').textContent = total;
 }
 
 function updateResults() {
@@ -95,7 +164,6 @@ function updateResults() {
     
     Object.keys(ingredients).forEach(id => {
         const slider = sliders[id];
-        // 新しいHTML構造に対応：ingredient-header内のpercentage要素を取得
         const percentageElement = slider.parentElement.querySelector('.percentage');
         const percentage = parseInt(percentageElement.textContent);
         const ingredient = ingredients[id];
@@ -121,7 +189,4 @@ function updateResults() {
     });
     
     document.getElementById('resultsSection').style.display = 'block';
-}
-
-// 初期パーセンテージを設定
-updatePercentages(); 
+} 
