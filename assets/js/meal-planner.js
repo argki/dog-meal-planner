@@ -62,7 +62,9 @@ function updatePercentages() {
         const percentage = Math.round((parseInt(slider.value) / total) * 100);
         // スライダーの値も更新
         slider.value = percentage;
-        slider.nextElementSibling.textContent = percentage + '%';
+        // 新しいHTML構造に対応：ingredient-header内のpercentage要素を取得
+        const percentageElement = slider.parentElement.querySelector('.percentage');
+        percentageElement.textContent = percentage + '%';
     });
     
     document.getElementById('totalPercentage').textContent = '100';
@@ -89,7 +91,9 @@ function updateResults() {
     
     Object.keys(ingredients).forEach(id => {
         const slider = sliders[id];
-        const percentage = parseInt(slider.nextElementSibling.textContent);
+        // 新しいHTML構造に対応：ingredient-header内のpercentage要素を取得
+        const percentageElement = slider.parentElement.querySelector('.percentage');
+        const percentage = parseInt(percentageElement.textContent);
         const ingredient = ingredients[id];
         
         if (percentage > 0) {
